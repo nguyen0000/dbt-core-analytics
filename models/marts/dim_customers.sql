@@ -12,8 +12,8 @@ select * from {{ref('stg_jaffle_shop__orders')}}
 
 payment as (
 
-select      O.customer_id,sum(amount) as lifetime_value
-from        {{ref('stg_jaffle_shop__orders')}} as O left join {{ref('stg_stripe__payment')}} as P on O.order_id = P.orderid
+select      customer_id,sum(payment_amount) as lifetime_value
+from        {{ref('fct_orders')}}
 group by    1
     
 ),
@@ -48,7 +48,7 @@ final as (
     from customers as C
 
     left join customer_orders   using (customer_id)
-    left join payment as P          on C.customer_id = P.customer_id
+    left join payment as P      on C.customer_id = P.customer_id
 
 )
 
