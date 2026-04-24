@@ -1,6 +1,4 @@
-select  orderid as order_id,
-        O.customer_id,
-        amount
-from    {{ref('stg_jaffle_shop__orders')}} as O left join {{ref('stg_jaffle_shop__customers')}} as C using (customer_id)
-                                                left join {{ref('stg_stripe__payment')}}        as P on O.order_id      = P.orderid
-
+select  order_id,
+        customer_id,
+        payment_amount
+from    {{ref('stg_jaffle_shop__orders')}}  left join {{ref('stg_stripe__payment')}}  using (order_id)
