@@ -1,0 +1,16 @@
+models:
+  - name: stg_stripe__payment
+    description: staged stripe data from payment application
+    columns:
+      - name: Amount
+        description: The amount of transaction
+
+      - name: payment_status
+        description: "{{ doc('payment_status') }}"
+        data_tests:
+          - accepted_values:
+              arguments:
+                values: ['success', 'fail']
+    
+
+        
